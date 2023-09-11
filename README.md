@@ -1,3 +1,5 @@
+Projeto back-end de uma aplicação para controle financeiro familiar, utilizando NestJS, TypeORM, PostgreSQL em Docker. Inspirado na 2ª Edição do Challenge Back-end Alura.
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
