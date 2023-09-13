@@ -5,10 +5,12 @@ import { IncomeModule } from './income/income.module';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { GlobalExceptionFilter } from './filter/global-exception-filter';
+import { ExpenseModule } from './expense/expense.module';
 
 @Module({
   imports: [
     IncomeModule,
+    ExpenseModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
