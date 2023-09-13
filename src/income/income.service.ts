@@ -126,7 +126,22 @@ export class IncomeService {
     return updatedIncome;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} income`;
+  async removeIncome(id: string) {
+    const income = await this.incomeRepository.findOneBy({ id });
+
+    if (income === null) {
+      throw new NotFoundException('A receita não foi encontrada!');
+    }
+
+    const deletedIncome = new ListIncomeDTO(
+      income.id,
+      income.description,
+      income.value,
+      income.date,
+    );
+
+    await this.incomeRepository.delete(id);
+
+    return deletedIncome;
   }
 }

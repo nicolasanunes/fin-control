@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { IncomeService } from './income.service';
 import { CreateIncomeDTO } from './dto/CreateIncome.dto';
 import { UpdateIncomeDTO } from './dto/UpdateIncome.dto';
@@ -42,13 +50,13 @@ export class IncomeController {
     };
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateIncomeDto: UpdateIncomeDto) {
-  //   return this.incomeService.update(+id, updateIncomeDto);
-  // }
+  @Delete(':id')
+  async removeIncome(@Param('id') id: string) {
+    const removedIncome = await this.incomeService.removeIncome(id);
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.incomeService.remove(+id);
-  // }
+    return {
+      income: removedIncome,
+      message: 'Receita removida com sucesso!',
+    };
+  }
 }
