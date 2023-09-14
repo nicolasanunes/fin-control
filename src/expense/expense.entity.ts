@@ -21,6 +21,9 @@ export class ExpenseEntity {
   @Column({ name: 'date', length: 100, nullable: false })
   date: string;
 
+  @Column({ name: 'category', length: 100, nullable: false })
+  category: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
 

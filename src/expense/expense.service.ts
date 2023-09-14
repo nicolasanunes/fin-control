@@ -55,6 +55,7 @@ export class ExpenseService {
       expense.description,
       expense.value,
       expense.date,
+      expense.category,
     );
 
     return createdExpense;
@@ -70,6 +71,7 @@ export class ExpenseService {
           expense.description,
           expense.value,
           expense.date,
+          expense.category,
         ),
     );
 
@@ -88,6 +90,7 @@ export class ExpenseService {
       possibleExpense.description,
       possibleExpense.value,
       possibleExpense.date,
+      possibleExpense.category,
     );
 
     return detalhedExpense;
@@ -121,6 +124,7 @@ export class ExpenseService {
       expense.description,
       expense.value,
       expense.date,
+      expense.category,
     );
 
     return updatedExpense;
@@ -138,6 +142,7 @@ export class ExpenseService {
       expense.description,
       expense.value,
       expense.date,
+      expense.category,
     );
 
     await this.expenseRepository.delete(id);

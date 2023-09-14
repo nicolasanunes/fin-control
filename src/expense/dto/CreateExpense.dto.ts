@@ -3,6 +3,8 @@ import {
   IsNumber,
   IsPositive,
   MaxLength,
+  IsOptional,
+  IsIn,
 } from '@nestjs/class-validator';
 
 export class CreateExpenseDTO {
@@ -17,4 +19,17 @@ export class CreateExpenseDTO {
 
   @IsNotEmpty({ message: 'A data não pode ser vazia!' })
   date: string;
+
+  @IsOptional()
+  @IsIn([
+    'Alimentação',
+    'Saúde',
+    'Moradia',
+    'Transporte',
+    'Educação',
+    'Lazer',
+    'Imprevistos',
+    'Outras',
+  ])
+  category: string;
 }

@@ -4,5 +4,6 @@ export class ListExpenseDTO {
     readonly description: string,
     readonly value: number,
     readonly date: string,
+    readonly category: string,
   ) {}
 }
