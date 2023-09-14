@@ -20,6 +20,7 @@ CREATE  TABLE  IF  NOT  EXISTS  public.expenses
   description character varying(255) COLLATE pg_catalog."default"  NOT NULL,
   value integer  NOT NULL,
   date character varying(100) COLLATE pg_catalog."default"  NOT NULL,
+  category character varying(100) COLLATE pg_catalog."default" NOT NULL DEFAULT 'Outras',
   created_at timestamp without time zone  NOT NULL  DEFAULT  now(),
   updated_at timestamp without time zone  NOT NULL  DEFAULT  now(),
   deleted_at timestamp without time zone,
