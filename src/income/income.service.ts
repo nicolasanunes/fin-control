@@ -101,7 +101,7 @@ export class IncomeService {
       throw new NotFoundException('Nenhuma receita foi encontrada!');
     }
 
-    const incomesByDescription = savedIncomes.map(
+    const incomeByDescription = savedIncomes.map(
       (income) =>
         new ListIncomeDTO(
           income.id,
@@ -111,7 +111,31 @@ export class IncomeService {
         ),
     );
 
-    return incomesByDescription;
+    return incomeByDescription;
+  }
+
+  async listIncomeByMonth(year: number, month: number) {
+    const savedIncomes = await this.incomeRepository.findBy({
+      date: Like(`%${month}/${year}`),
+    });
+
+    if (savedIncomes.length === 0) {
+      throw new NotFoundException(
+        `Nenhuma receita encontrada no mês ${month} de ${year}`,
+      );
+    }
+
+    const incomeByMonth = savedIncomes.map(
+      (income) =>
+        new ListIncomeDTO(
+          income.id,
+          income.description,
+          income.value,
+          income.date,
+        ),
+    );
+
+    return incomeByMonth;
   }
 
   async updateIncome(id: string, newData: UpdateIncomeDTO) {

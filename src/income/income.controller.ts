@@ -45,6 +45,18 @@ export class IncomeController {
     return detalhedIncome;
   }
 
+  @Get('/:year/:month')
+  async listIncomeByMonth(
+    @Param('year') year: number,
+    @Param('month') month: number,
+  ) {
+    const incomeByMonth = await this.incomeService.listIncomeByMonth(
+      year,
+      month,
+    );
+    return incomeByMonth;
+  }
+
   @Put('/:id')
   async updateIncome(
     @Param('id') id: string,
