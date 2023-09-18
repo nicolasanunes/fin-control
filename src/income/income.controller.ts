@@ -6,6 +6,7 @@ import {
   Param,
   Put,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { IncomeService } from './income.service';
 import { CreateIncomeDTO } from './dto/CreateIncome.dto';
@@ -26,9 +27,16 @@ export class IncomeController {
   }
 
   @Get()
-  async listIncome() {
-    const savedIncomes = await this.incomeService.listIncome();
-    return savedIncomes;
+  async listIncome(@Query('description') description: string) {
+    if (description === undefined) {
+      const savedIncomes = await this.incomeService.listIncome();
+      console.log(description);
+      return savedIncomes;
+    } else {
+      const listIncomeByDescription =
+        await this.incomeService.listIncomeByDescription(description);
+      return listIncomeByDescription;
+    }
   }
 
   @Get('/:id')

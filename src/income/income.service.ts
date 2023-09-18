@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateIncomeDTO } from './dto/CreateIncome.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { IncomeEntity } from './income.entity';
 import { ListIncomeDTO } from './dto/ListIncome.dto';
 import { UpdateIncomeDTO } from './dto/UpdateIncome.dto';
@@ -72,7 +72,6 @@ export class IncomeService {
           income.date,
         ),
     );
-
     return listIncomes;
   }
 
@@ -91,6 +90,28 @@ export class IncomeService {
     );
 
     return detalhedIncome;
+  }
+
+  async listIncomeByDescription(description: string) {
+    const savedIncomes = await this.incomeRepository.findBy({
+      description: Like(`%${description}%`),
+    });
+
+    if (savedIncomes.length === 0) {
+      throw new NotFoundException('Nenhuma receita foi encontrada!');
+    }
+
+    const incomesByDescription = savedIncomes.map(
+      (income) =>
+        new ListIncomeDTO(
+          income.id,
+          income.description,
+          income.value,
+          income.date,
+        ),
+    );
+
+    return incomesByDescription;
   }
 
   async updateIncome(id: string, newData: UpdateIncomeDTO) {
