@@ -119,6 +119,31 @@ export class ExpenseService {
     return expenseByDescription;
   }
 
+  async listExpenseByMonth(year: number, month: number) {
+    const savedExpenses = await this.expenseRepository.findBy({
+      date: Like(`%${month}/${year}`),
+    });
+
+    if (savedExpenses.length === 0) {
+      throw new NotFoundException(
+        `Nenhuma despesa encontrada no mês ${month} de ${year}`,
+      );
+    }
+
+    const expenseByMonth = savedExpenses.map(
+      (expense) =>
+        new ListExpenseDTO(
+          expense.id,
+          expense.description,
+          expense.value,
+          expense.date,
+          expense.category,
+        ),
+    );
+
+    return expenseByMonth;
+  }
+
   async updateExpense(id: string, newData: UpdateExpenseDTO) {
     const expense = await this.expenseRepository.findOneBy({ id });
 

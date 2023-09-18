@@ -44,6 +44,18 @@ export class ExpenseController {
     return detalhedExpense;
   }
 
+  @Get('/:year/:month')
+  async listExpenseByMonth(
+    @Param('year') year: number,
+    @Param('month') month: number,
+  ) {
+    const expenseByMonth = await this.expenseService.listExpenseByMonth(
+      year,
+      month,
+    );
+    return expenseByMonth;
+  }
+
   @Put('/:id')
   async updateExpense(
     @Param('id') id: string,
