@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateExpenseDTO } from './dto/CreateExpense.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { ExpenseEntity } from './expense.entity';
 import { ListExpenseDTO } from './dto/ListExpense.dto';
 import { UpdateExpenseDTO } from './dto/UpdateExpense.dto';
@@ -94,6 +94,29 @@ export class ExpenseService {
     );
 
     return detalhedExpense;
+  }
+
+  async listExpenseByDescription(description: string) {
+    const savedExpenses = await this.expenseRepository.findBy({
+      description: Like(`%${description}%`),
+    });
+
+    if (savedExpenses.length === 0) {
+      throw new NotFoundException('Nenhuma despesa foi encontrada!');
+    }
+
+    const expenseByDescription = savedExpenses.map(
+      (expense) =>
+        new ListExpenseDTO(
+          expense.id,
+          expense.description,
+          expense.value,
+          expense.date,
+          expense.category,
+        ),
+    );
+
+    return expenseByDescription;
   }
 
   async updateExpense(id: string, newData: UpdateExpenseDTO) {

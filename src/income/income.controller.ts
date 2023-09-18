@@ -30,7 +30,6 @@ export class IncomeController {
   async listIncome(@Query('description') description: string) {
     if (description === undefined) {
       const savedIncomes = await this.incomeService.listIncome();
-      console.log(description);
       return savedIncomes;
     } else {
       const listIncomeByDescription =

@@ -6,6 +6,7 @@ import {
   Param,
   Put,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDTO } from './dto/CreateExpense.dto';
@@ -26,9 +27,15 @@ export class ExpenseController {
   }
 
   @Get()
-  async listExpense() {
-    const savedExpenses = await this.expenseService.listExpense();
-    return savedExpenses;
+  async listExpense(@Query('description') description: string) {
+    if (description === undefined) {
+      const savedExpenses = await this.expenseService.listExpense();
+      return savedExpenses;
+    } else {
+      const listExpenseByDescription =
+        await this.expenseService.listExpenseByDescription(description);
+      return listExpenseByDescription;
+    }
   }
 
   @Get('/:id')
