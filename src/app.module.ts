@@ -6,11 +6,13 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { GlobalExceptionFilter } from './filter/global-exception-filter';
 import { ExpenseModule } from './expense/expense.module';
+import { SummaryModule } from './summary/summary.module';
 
 @Module({
   imports: [
     IncomeModule,
     ExpenseModule,
+    SummaryModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
